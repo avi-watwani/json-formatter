@@ -48,16 +48,16 @@ export default function Home() {
       <main className="flex flex-1 flex-col items-center justify-center p-4">
         <div className="flex gap-4 w-full">
           <textarea
-          className="flex-1 p-4 border border-gray-300 rounded resize-none"
-          placeholder="Enter JSON here"
-          value={jsonInput}
-          onChange={(e) => setJsonInput(e.target.value)}
+            className="flex-1 p-4 border border-gray-300 rounded resize-none"
+            placeholder="Enter JSON here"
+            value={jsonInput}
+            onChange={(e) => setJsonInput(e.target.value)}
           />
           <textarea
-          className="flex-1 p-4 border border-gray-300 rounded resize-none"
-          placeholder="Formatted JSON will appear here"
-          value={formattedJson}
-          readOnly
+            className="flex-1 p-4 border border-gray-300 rounded resize-none"
+            placeholder="Formatted JSON will appear here"
+            value={formattedJson}
+            readOnly
           />
         </div>
         <button
