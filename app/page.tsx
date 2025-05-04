@@ -51,7 +51,7 @@ export default function JsonTools() {
       <main className="flex-1 flex p-4 gap-4 overflow-hidden">
         {/* Left Textarea */}
         <textarea
-          className="w-full p-4 border border-gray-300 rounded resize-none overflow-auto"
+          className="w-full p-4 border border-gray-300 rounded resize-none overflow-auto bg-white"
           placeholder="Enter JSON here or paste it.."
           value={jsonInput}
           onChange={(e) => setJsonInput(e.target.value)}
@@ -69,7 +69,7 @@ export default function JsonTools() {
 
         {/* Right Textarea */}
         <textarea
-          className="w-full p-4 border border-gray-300 rounded resize-none overflow-auto"
+          className="w-full p-4 border border-gray-300 rounded resize-none overflow-auto bg-white"
           placeholder="Formatted JSON will appear here"
           value={formattedJson}
           readOnly
