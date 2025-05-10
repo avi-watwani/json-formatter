@@ -17,6 +17,78 @@ export default function JsonTools() {
     }
   };
 
+  const convertJsonToXml = () => {
+    try {
+      const json = JSON.parse(jsonInput);
+      const xml = jsonToXml(json);
+      setFormattedJson(xml);
+    } catch (err) {
+      setFormattedJson("Invalid JSON");
+    }
+  };
+  const convertJsonToYaml = () => {
+    try {
+      const json = JSON.parse(jsonInput);
+      const yaml = jsonToYaml(json);
+      setFormattedJson(yaml);
+    } catch (err) {
+      setFormattedJson("Invalid JSON");
+    }
+  };
+  const jsonToXml = (json: any, indent: string = ""): string => {
+    let xml = "";
+    const indentStep = "  "; // Define the indentation step (2 spaces)
+
+    for (const prop in json) {
+      if (json.hasOwnProperty(prop)) {
+        if (Array.isArray(json[prop])) {
+          for (const arrayElem of json[prop]) {
+            xml += `${indent}<${prop}>\n`;
+            xml += jsonToXml(arrayElem, indent + indentStep);
+            xml += `${indent}</${prop}>\n`;
+          }
+        } else if (typeof json[prop] === "object") {
+          xml += `${indent}<${prop}>\n`;
+          xml += jsonToXml(json[prop], indent + indentStep);
+          xml += `${indent}</${prop}>\n`;
+        } else {
+          xml += `${indent}<${prop}>${json[prop]}</${prop}>\n`;
+        }
+      }
+    }
+
+    return xml;
+  };
+  const jsonToYaml = (json: any, indent: string = ""): string => {
+    if (typeof json !== "object" || json === null) {
+      return `${json}`;
+    }
+
+    const yaml = Object.entries(json)
+      .map(([key, value]) => {
+        if (typeof value === "object" && !Array.isArray(value) && value !== null) {
+          return `${indent}${key}:\n${jsonToYaml(value, indent + "  ")}`;
+        } else if (Array.isArray(value)) {
+          return `${indent}${key}:\n${value
+            .map((item) => {
+              if (typeof item === "object" && item !== null) {
+                // Place hyphen and first key on the same line
+                const itemYaml = jsonToYaml(item, indent + "  ");
+                const itemLines = itemYaml.split("\n");
+                return `${indent}- ${itemLines[0]}${itemLines.length > 1 ? "\n" + itemLines.slice(1).map(line => indent + "  " + line).join("\n") : ""}`;
+              } else {
+                return `${indent}- ${item}`;
+              }
+            })
+            .join("\n")}`;
+        } else {
+          return `${indent}${key}: ${value}`;
+        }
+      })
+      .join("\n");
+    return yaml;
+  };
+
   const handlePaste = (event: ClipboardEvent) => {
     const pastedData = event.clipboardData?.getData("text") || "";
     setJsonInput(pastedData);
@@ -40,11 +112,6 @@ export default function JsonTools() {
       {/* Navigation Bar */}
       <nav className="w-full flex justify-between items-center p-4 bg-gray-100 shadow-md">
         <div className="text-lg font-bold">JSON Tools</div>
-        <div className="flex gap-4">
-          <Link href="/" className="hover:underline">JSON Formatter</Link>
-          <Link href="/json-to-yaml" className="hover:underline">JSON to YAML</Link>
-          <Link href="/json-to-xml" className="hover:underline">JSON to XML</Link>
-        </div>
       </nav>
 
       {/* Main Content */}
@@ -64,6 +131,18 @@ export default function JsonTools() {
             className="px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 w-full"
           >
             Format JSON
+          </button>
+          <button
+            onClick={convertJsonToXml}
+            className="px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 w-full"
+          >
+            To XML
+          </button>
+          <button
+            onClick={convertJsonToYaml}
+            className="px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 w-full"
+          >
+            To YAML
           </button>
         </div>
 
