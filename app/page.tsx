@@ -114,32 +114,32 @@ export default function JsonTools() {
       </nav>
 
       {/* Main Content */}
-      <main className="flex-1 flex p-4 gap-4 overflow-hidden">
+      <main className="flex-1 flex flex-col lg:flex-row p-4 gap-4 overflow-hidden">
         {/* Left Textarea */}
         <textarea
-          className="w-full p-4 border border-gray-300 rounded resize-none overflow-auto bg-white"
+          className="flex-1 p-4 border border-gray-300 rounded resize-none overflow-auto bg-white min-h-[200px] lg:min-h-0"
           placeholder="Enter JSON here or paste it.."
           value={jsonInput}
           onChange={(e) => setJsonInput(e.target.value)}
         />
 
         {/* Center Column */}
-        <div className="min-w-[180px] flex flex-col items-center justify-center gap-4">
+        <div className="w-full lg:w-auto lg:min-w-[180px] flex flex-row lg:flex-col items-center justify-center gap-4">
           <button
             onClick={handleFormatJson}
-            className="px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 w-full"
+            className="flex-1 lg:flex-none px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 lg:w-full"
           >
             Format JSON
           </button>
           <button
             onClick={convertJsonToXml}
-            className="px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 w-full"
+            className="flex-1 lg:flex-none px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 lg:w-full"
           >
             To XML
           </button>
           <button
             onClick={convertJsonToYaml}
-            className="px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 w-full"
+            className="flex-1 lg:flex-none px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 lg:w-full"
           >
             To YAML
           </button>
@@ -147,7 +147,7 @@ export default function JsonTools() {
 
         {/* Right Textarea */}
         <textarea
-          className="w-full p-4 border border-gray-300 rounded resize-none overflow-auto bg-white"
+          className="flex-1 p-4 border border-gray-300 rounded resize-none overflow-auto bg-white min-h-[200px] lg:min-h-0"
           placeholder="Formatted JSON will appear here"
           value={formattedJson}
           readOnly
