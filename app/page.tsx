@@ -126,16 +126,16 @@ export default function JsonTools() {
         {/* Center Column */}
         <div className="w-full lg:w-auto lg:min-w-[180px] flex flex-row lg:flex-col items-center justify-center gap-4">
           <button
-            onClick={handleFormatJson}
-            className="flex-1 lg:flex-none px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 lg:w-full"
-          >
-            Format JSON
-          </button>
-          <button
             onClick={convertJsonToXml}
             className="flex-1 lg:flex-none px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 lg:w-full"
           >
             To XML
+          </button>
+          <button
+            onClick={handleFormatJson}
+            className="flex-1 lg:flex-none px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 lg:w-full"
+          >
+            Format JSON
           </button>
           <button
             onClick={convertJsonToYaml}
